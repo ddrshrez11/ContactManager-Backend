@@ -21,5 +21,7 @@ mongoose
 
 //include routes
 app.use("/api/contact", require("./Routes/apis/contact"));
+app.use("/api/user", require("./Routes/apis/user"));
+app.use("/api/auth", require("./Routes/apis/auth"));
 
 module.exports = app;

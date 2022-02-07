@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const contactController = require("../../Controllers/contactController");
-
+const auth = require("../../Middlewares/auth");
 //  Contact Schema
 const Contact = require("../../Models/contactSchema");
 
 /**
- *  @route GET api/
+ *  @route GET api/contact
  *  @desc Get All Items
- *  @access Public
+ *  @access Private
  */
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   Contact.find()
     .sort({ date: -1 })
     .then((contacts) => res.json(contacts));
@@ -18,9 +18,9 @@ router.get("/", (req, res) => {
 /**
  *  @route POST api/contact
  *  @desc Create a Contact
- *  @access Public
+ *  @access Private
  */
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const newContact = new Contact({
     name: req.body.name,
     number: req.body.number,
@@ -31,9 +31,9 @@ router.post("/", (req, res) => {
 /**
  *  @route DELETE api/contact/:id
  *  @desc Delete a Contact
- *  @access Public
+ *  @access Private
  */
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   Contact.findById(req.params.id)
     .then((contact) => contact.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
