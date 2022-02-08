@@ -7,20 +7,20 @@ const Contact = require("../../Models/contactSchema");
 /**
  *  @route GET api/contact
  *  @desc Get All Items
- *  @access Private
+ *  @access Public
  */
-router.get("/", auth, (req, res) => {
+router.get("/contacts", auth, (req, res) => {
   Contact.find()
     .sort({ date: -1 })
     .then((contacts) => res.json(contacts));
 });
 
 /**
- *  @route POST api/contact
+ *  @route POST /contacts
  *  @desc Create a Contact
  *  @access Private
  */
-router.post("/", auth, (req, res) => {
+router.post("/contacts", auth, (req, res) => {
   const newContact = new Contact({
     name: req.body.name,
     number: req.body.number,
@@ -29,14 +29,26 @@ router.post("/", auth, (req, res) => {
 });
 
 /**
- *  @route DELETE api/contact/:id
+ *  @route DELETE /contacts/:id
  *  @desc Delete a Contact
  *  @access Private
  */
-router.delete("/:id", auth, (req, res) => {
+router.delete("/contacts/:id", auth, (req, res) => {
   Contact.findById(req.params.id)
     .then((contact) => contact.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
 
+/**
+ *  @route Put /contacts/:id
+ *  @desc Edit a Contact
+ *  @access Private
+ */
+router.put("/contacts/:id", auth, (req, res) => {
+  const cont = Contact.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  })
+    .then(() => res.json(req.body))
+    .catch((err) => res.status(404).json({ success: false }));
+});
 module.exports = router;

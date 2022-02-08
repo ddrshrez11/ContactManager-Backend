@@ -20,8 +20,8 @@ mongoose
   });
 
 //include routes
-app.use("/api/contact", require("./Routes/apis/contact"));
-app.use("/api/user", require("./Routes/apis/user"));
-app.use("/api/auth", require("./Routes/apis/auth"));
+app.use("/", require("./Routes/apis/auth"));
+app.use("/", require("./Routes/apis/contact"));
+app.use("/", require("./Routes/apis/user"));
 
 module.exports = app;

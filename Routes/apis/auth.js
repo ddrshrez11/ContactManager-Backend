@@ -7,11 +7,11 @@ const auth = require("../../Middlewares/auth");
 const User = require("../../Models/userSchema");
 
 /**
- *  @route POST api/auth
+ *  @route POST /login
  *  @desc Authenticate the user
  *  @access Public
  */
-router.post("/", (req, res) => {
+router.post("/signin", (req, res) => {
   const { email, password } = req.body;
 
   //Simple Validation
@@ -48,7 +48,7 @@ router.post("/", (req, res) => {
 });
 
 /**
- *  @route GEt api/auth/user
+ *  @route GEt /user
  *  @desc Get user data
  *  @access Private
  */
@@ -57,23 +57,5 @@ router.get("/user", auth, (req, res) => {
     .select("-password")
     .then((user) => res.json(user));
 });
-router.post("/", (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-    number: req.body.number,
-  });
-  newUser.save().then((user) => res.json(user));
-});
-
-// /**
-//  *  @route DELETE api/user/:id
-//  *  @desc Delete a User
-//  *  @access Public
-//  */
-// router.delete("/:id", (req, res) => {
-//   User.findById(req.params.id)
-//     .then((user) => user.remove().then(() => res.json({ success: true })))
-//     .catch((err) => res.status(404).json({ success: false }));
-// });
 
 module.exports = router;

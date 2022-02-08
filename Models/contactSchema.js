@@ -9,8 +9,11 @@ const ContactSchema = new Schema({
   },
   number: {
     type: Number,
-    required: false,
-    default: 0,
+    required: true,
+  },
+  favourite: {
+    type: Boolean,
+    default: false,
   },
   date: {
     type: Date,

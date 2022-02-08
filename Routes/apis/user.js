@@ -7,11 +7,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../../Models/userSchema");
 
 /**
- *  @route POST api/user
+ *  @route POST /signup
  *  @desc Register new user
  *  @access Public
  */
-router.post("/", (req, res) => {
+router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
 
   //Simple Validation
@@ -55,29 +55,5 @@ router.post("/", (req, res) => {
     });
   });
 });
-
-// /**
-//  *  @route POST api/user
-//  *  @desc Create a User
-//  *  @access Public
-//  */
-// router.post("/", (req, res) => {
-//   const newUser = new User({
-//     name: req.body.name,
-//     number: req.body.number,
-//   });
-//   newUser.save().then((user) => res.json(user));
-// });
-
-// /**
-//  *  @route DELETE api/user/:id
-//  *  @desc Delete a User
-//  *  @access Public
-//  */
-// router.delete("/:id", (req, res) => {
-//   User.findById(req.params.id)
-//     .then((user) => user.remove().then(() => res.json({ success: true })))
-//     .catch((err) => res.status(404).json({ success: false }));
-// });
 
 module.exports = router;
