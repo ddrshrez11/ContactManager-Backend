@@ -4,14 +4,18 @@ const auth = require("../../Middlewares/auth");
 //  Contact Schema
 const Contact = require("../../Models/contactSchema");
 
+//utils
+const cloudinary = require("../../utils/cloudinary");
+const upload = require("../../utils/multer");
+
 /**
  *  @route GET api/contact
  *  @desc Get All Items
  *  @access Public
  */
 router.get("/contacts", auth, (req, res) => {
-  Contact.find()
-    .sort({ date: -1 })
+  Contact.find({ userId: req.user.id })
+    .sort({ favourite: "desc", name: "asc" })
     .then((contacts) => res.json(contacts));
 });
 
@@ -24,6 +28,9 @@ router.post("/contacts", auth, (req, res) => {
   const newContact = new Contact({
     name: req.body.name,
     number: req.body.number,
+    photo: req.body.photo,
+    cloudinaryId: req.body.cloudinaryId,
+    userId: req.body.userId,
   });
   newContact.save().then((contact) => res.json(contact));
 });
@@ -51,4 +58,24 @@ router.put("/contacts/:id", auth, (req, res) => {
     .then(() => res.json(req.body))
     .catch((err) => res.status(404).json({ success: false }));
 });
+
+/**
+ *  @route POST /contacts/uploadImage
+ *  @desc Upload a Contact Image
+ *  @access Private
+ */
+router.post(
+  "/contacts/upload",
+  auth,
+  upload.single("photo"),
+  async (req, res) => {
+    try {
+      console.log(req.file);
+      const result = await cloudinary.uploader.upload(req.file.path);
+      res.json({ photo: result.secure_url, cloudinaryId: result.public_id });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 module.exports = router;

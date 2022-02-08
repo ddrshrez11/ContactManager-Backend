@@ -15,6 +15,17 @@ const ContactSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  photo: {
+    type: String,
+    default: "",
+  },
+  cloudinaryId: {
+    type: String,
+    default: "",
+  },
+  userId: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now(),
