@@ -4,7 +4,11 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
 
 //enable json support
 app.use(express.json({ limit: "50mb" }));
