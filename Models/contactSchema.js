@@ -2,15 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //Create Schema
-const ContactSchema = new Schema({
-  name: {
+const NumberSchema = new Schema({
+  category: {
     type: String,
-    required: true,
+    default: "Phone",
   },
   number: {
     type: Number,
     required: true,
   },
+});
+
+const ContactSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  numbers: [NumberSchema],
   favourite: {
     type: Boolean,
     default: false,

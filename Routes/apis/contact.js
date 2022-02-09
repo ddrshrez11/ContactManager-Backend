@@ -27,7 +27,7 @@ router.get("/contacts", auth, (req, res) => {
 router.post("/contacts", auth, (req, res) => {
   const newContact = new Contact({
     name: req.body.name,
-    number: req.body.number,
+    numbers: req.body.numbers,
     photo: req.body.photo,
     cloudinaryId: req.body.cloudinaryId,
     userId: req.body.userId,
