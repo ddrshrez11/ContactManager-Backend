@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // const userController = require("../../Controllers/userController");
 
-//  User Schema
+//  Import User Schema
 const User = require("../../Models/userSchema");
 
 /**

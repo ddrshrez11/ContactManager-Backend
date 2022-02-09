@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//Create Schema
+//Create Schema for Categorized numbers
 const NumberSchema = new Schema({
   category: {
     type: String,
@@ -13,6 +13,7 @@ const NumberSchema = new Schema({
   },
 });
 
+//Create Schema for Contacts
 const ContactSchema = new Schema({
   name: {
     type: String,
