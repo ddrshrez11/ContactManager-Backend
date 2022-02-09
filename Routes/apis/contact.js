@@ -9,9 +9,9 @@ const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 
 /**
- *  @route GET api/contact
- *  @desc Get All Items
- *  @access Public
+ *  @route GET /contacts
+ *  @desc Get All contacts for each user
+ *  @access Private
  */
 router.get("/contacts", auth, (req, res) => {
   Contact.find({ userId: req.user.id })
